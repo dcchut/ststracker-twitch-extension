@@ -2,6 +2,7 @@ import React from 'react'
 import Authentication from '../../util/Authentication/Authentication'
 
 import './Config.css'
+import '../../util/bootstrap.min.css'
 
 export default class ConfigPage extends React.Component{
     constructor(props){
@@ -12,7 +13,8 @@ export default class ConfigPage extends React.Component{
         this.twitch = window.Twitch ? window.Twitch.ext : null
         this.state={
             finishedLoading:false,
-            theme:'light'
+            theme:'light',
+            key:'',
         }
     }
 
@@ -30,11 +32,11 @@ export default class ConfigPage extends React.Component{
             this.twitch.onAuthorized((auth)=>{
                 this.Authentication.setToken(auth.token, auth.userId)
                 if(!this.state.finishedLoading){
-                    // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
-    
-                    // now we've done the setup for the component, let's set the state to true to force a rerender with the correct data.
-                    this.setState(()=>{
-                        return {finishedLoading:true}
+                    this.getAPIKey().finally(() => {
+                        // We've finished loading
+                        this.setState(()=>{
+                            return {finishedLoading:true}
+                        });
                     })
                 }
             })
@@ -45,12 +47,29 @@ export default class ConfigPage extends React.Component{
         }
     }
 
+    getAPIKey(){
+        return this.Authentication.makeCall("https://sts-tracker.nitrated.net/view_api_key", "POST").then(response => response.json())
+        .then(v => {
+            this.setState(() => {
+                return {key : v.key}
+            });
+        }).catch(e => {
+            console.log(e);
+        });
+    }
+
     render(){
         if(this.state.finishedLoading && this.Authentication.isModerator()){
             return(
                 <div className="Config">
                     <div className={this.state.theme==='light' ? 'Config-light' : 'Config-dark'}>
-                        There is no configuration needed for this extension!
+                        <label htmlFor="api-key">Your API key:</label>
+                        <div className="input-group mb-3">
+                            <input type="password" className="form-control" id="api-key" value={this.state.key} readOnly={true} />
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary" type="button" onClick={() => {navigator.clipboard.writeText(this.state.key)}}>Copy</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )

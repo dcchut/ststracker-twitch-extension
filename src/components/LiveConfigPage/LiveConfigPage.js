@@ -63,8 +63,6 @@ export default class LiveConfigPage extends React.Component{
             return (
                 <div className="LiveConfigPage">
                     <div className={this.state.theme === 'light' ? 'LiveConfigPage-light' : 'LiveConfigPage-dark'} >
-                        <p>Hello world!</p>
-                        <p>This is the live config page! </p>
                     </div>
                 </div>
             )

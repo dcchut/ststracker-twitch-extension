@@ -28,6 +28,8 @@
     "html-webpack-plugin": "^4.0.0-beta.5",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^23.6.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.6.0",
     "webpack-cli": "^3.1.0",
@@ -35,8 +37,12 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.3.0",
+    "nes.css": "^2.2.0",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-text-filter": "^3.0.1",
+    "react-tooltip": "^3.10.0",
+    "rfs": "^8.0.4"
   },
   "babel": {
     "presets": [

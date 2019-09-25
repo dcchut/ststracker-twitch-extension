@@ -65,3 +65,6 @@ typings/
 
 # Finalized files
 dist/
+
+# IntelliJ folder
+.idea/

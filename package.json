@@ -41,7 +41,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-text-filter": "^3.0.2",
-    "react-tooltip": "^4.1.0",
+    "react-tooltip": "^4.1.1",
     "rfs": "^9.0.2"
   },
   "babel": {
